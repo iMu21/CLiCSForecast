@@ -8,18 +8,11 @@ class BaseModel(models.Model):
     clics_db_id = models.IntegerField(unique = True)
 
     class Meta:
-        abstract = True  # This model will not be created as a database table
+        abstract = True  
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
-        model_name = self.__class__.__name__.lower()
-        app_folder = os.path.dirname(os.path.abspath(__file__))
-        project_folder = os.path.dirname(app_folder)
-        csv_latest_folder = os.path.join(project_folder, 'csv_data','latest_data')
-        os.makedirs(csv_latest_folder, exist_ok=True)
-        csv_latest_file_name = f'{model_name}.csv'
-        csv_latest_path = os.path.join(csv_latest_folder, csv_latest_file_name)
+        csv_latest_path = self.__class__.get_csv_latest_file_path()
         
         is_new_file = not os.path.isfile(csv_latest_path)
 
