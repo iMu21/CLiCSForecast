@@ -3,9 +3,10 @@ from django.db import models
 from forecasts.models.base_model import BaseModel
 
 class Dependent(BaseModel):
-    #enroll = models.ForeignKey(Enroll, on_delete=models.CASCADE)
-    dependent_name = models.CharField(max_length=100, default=timezone.now)
-    date_of_birth = models.DateField(default=timezone.now)
+    enroll_id = models.IntegerField(default=0)
+    gender = models.CharField(max_length=1,default='O')
+    birth_date = models.DateField(default=timezone.now)
+    effective_date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.dependent_name} "#- {self.enroll}"
+        return f"{self.clics_db_id} - {self.enroll_id}"

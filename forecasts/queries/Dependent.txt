@@ -1,0 +1,21 @@
+SELECT  
+
+Id as clics_db_id, 
+
+EnrolId as enroll_id, 
+
+CASE  
+
+	WHEN Gender = 1 THEN 'M' 
+
+	WHEN Gender = 2 THEN 'F' 
+
+	ELSE 'O' 
+
+END AS gender, 
+
+Birthdate AS birth_date, 
+
+EffectiveDate AS effective_date 
+
+from EnrolDependents 

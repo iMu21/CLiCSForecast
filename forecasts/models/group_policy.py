@@ -3,9 +3,12 @@ from django.db import models
 from forecasts.models.base_model import BaseModel
 
 class GroupPolicy(BaseModel):
-    group_name = models.CharField(max_length=100)
+    group_number = models.CharField(max_length=100)
+    premium_payment_type = models.CharField(max_length=100)
+    group_policy_type = models.CharField(max_length=100)
+    category = models.CharField(max_length=100)
+    group_type = models.CharField(max_length=100)
     effective_date = models.DateField(default=timezone.now)
-    coverage_amount = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
-        return self.group_name
+        return f'{self.clics_db_id} - {self.group_number}'
