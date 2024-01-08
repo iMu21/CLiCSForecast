@@ -4,8 +4,10 @@ git clone https://github.com/iMu21/CLiCSForecast.git
 # Navigate to the project directory
 cd CLiCSForecast
 
-# Create and activate a virtual environment
+# Create a virtual environment
 python -m venv venv
+
+# Activate virtual environment
 venv\Scripts\activate  # On Windows
 # OR
 source venv/bin/activate  # On Unix or MacOS
