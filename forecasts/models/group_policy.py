@@ -11,4 +11,7 @@ class GroupPolicy(BaseModel):
     effective_date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.clics_db_id} - {self.group_number}'
+        return f'{self.group_number}'
+    
+
+    #clics_db_id,group_number,premium_payment_type,group_policy_type,category,group_type,effective_date

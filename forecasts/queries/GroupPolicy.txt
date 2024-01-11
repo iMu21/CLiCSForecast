@@ -42,6 +42,8 @@ CASE
 
 END AS group_type, 
 
-EffectiveDateUtc AS effective_date 
+DATE_FORMAT(EffectiveDateUtc, '%Y-%m-%d') AS effective_date 
 
 FROM GroupPolicies 
+
+--clics_db_id,group_number,premium_payment_type,group_policy_type,category,group_type,effective_date

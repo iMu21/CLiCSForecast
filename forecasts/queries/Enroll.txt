@@ -16,9 +16,9 @@ CASE
 
 END AS gender, 
 
-Birthdate AS birth_date, 
+DATE_FORMAT(Birthdate, '%Y-%m-%d') AS birth_date, 
 
-EffectiveDate AS effective_date, 
+DATE_FORMAT(EffectiveDate, '%Y-%m-%d') AS effective_date, 
 
 GroupPolicyClusterId AS group_policy_cluster_id 
 

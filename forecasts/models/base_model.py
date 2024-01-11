@@ -5,25 +5,25 @@ import csv
 import os
 
 class BaseModel(models.Model):
-    clics_db_id = models.IntegerField(unique = True)
+    clics_db_id = models.IntegerField()
 
     class Meta:
         abstract = True  
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        csv_latest_path = self.__class__.get_csv_latest_file_path()
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     csv_latest_path = self.__class__.get_csv_latest_file_path()
         
-        is_new_file = not os.path.isfile(csv_latest_path)
+    #     is_new_file = not os.path.isfile(csv_latest_path)
 
-        fields = [field.name for field in self._meta.fields]
+    #     fields = [field.name for field in self._meta.fields]
 
-        with open(csv_latest_path, 'a', newline='') as csv_file:
-            csv_writer = csv.writer(csv_file)
-            if is_new_file:
-                csv_writer.writerow(fields)
+    #     with open(csv_latest_path, 'a', newline='') as csv_file:
+    #         csv_writer = csv.writer(csv_file)
+    #         if is_new_file:
+    #             csv_writer.writerow(fields)
 
-            csv_writer.writerow([getattr(self, field) for field in fields])
+    #         csv_writer.writerow([getattr(self, field) for field in fields])
 
     @classmethod
     def bulk_upload(self):
@@ -35,7 +35,7 @@ class BaseModel(models.Model):
     @classmethod
     def upload_data(self):
         csv_upload_path = self.get_csv_upload_file_path()
-        with open(csv_upload_path, 'r') as csv_file: 
+        with open(csv_upload_path, 'r', encoding='utf-8-sig') as csv_file: 
             reader = csv.DictReader(csv_file)
             for row in reader:
                 obj = self(**row)
