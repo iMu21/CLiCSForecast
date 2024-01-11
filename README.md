@@ -16,7 +16,9 @@ source venv/bin/activate  # On Unix or MacOS
 pip install -r requirements.txt
 
 # Apply database migrations
-python manage.py migrate
+python manage.py migrate\n
+python manage.py makemigrations forecasts\n
+python manage.py migrate forecasts
 
 # Create a superuser (optional, for admin access)
 python manage.py createsuperuser
