@@ -10,21 +10,6 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True  
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     csv_latest_path = self.__class__.get_csv_latest_file_path()
-        
-    #     is_new_file = not os.path.isfile(csv_latest_path)
-
-    #     fields = [field.name for field in self._meta.fields]
-
-    #     with open(csv_latest_path, 'a', newline='') as csv_file:
-    #         csv_writer = csv.writer(csv_file)
-    #         if is_new_file:
-    #             csv_writer.writerow(fields)
-
-    #         csv_writer.writerow([getattr(self, field) for field in fields])
-
     @classmethod
     def bulk_upload(self):
         self.back_up_existing()
@@ -37,21 +22,27 @@ class BaseModel(models.Model):
         csv_upload_path = self.get_csv_upload_file_path()
         with open(csv_upload_path, 'r', encoding='utf-8-sig') as csv_file: 
             reader = csv.DictReader(csv_file)
+            chunks = []
             for row in reader:
                 obj = self(**row)
-                obj.save()
+                chunks.append(obj)
+                if len(chunks)>1000:
+                    self.objects.bulk_create(chunks)
+                    chunks = []
+            if len(chunks)>0:
+                self.objects.bulk_create(chunks)
 
     @classmethod
     def export_model_to_csv(self):
         csv_latest_path = self.get_csv_latest_file_path()
-        os.path.isfile(csv_latest_path)
+        
         field_names = [field.name for field in self._meta.get_fields()]
 
-        with open(csv_latest_path, 'w', newline='') as csv_file:
+        with open(csv_latest_path, 'a', newline='', encoding='utf-8') as csv_file:
             csv_writer = csv.writer(csv_file)
             csv_writer.writerow(field_names)
             for obj in self.objects.all():
-                row_values = [getattr(obj, field) for field in field_names]
+                row_values = [str(getattr(obj, field)) for field in field_names]
                 csv_writer.writerow(row_values)
     
     @classmethod

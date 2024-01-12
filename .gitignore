@@ -4,3 +4,4 @@ venv/
 db.sqlite3
 csv_data
 csv_training_data
+.ipynb_checkpoints
