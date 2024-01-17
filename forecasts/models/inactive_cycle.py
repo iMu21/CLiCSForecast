@@ -3,7 +3,7 @@ from django.utils import timezone
 from forecasts.models.base_model import BaseModel
 
 class InactiveCycle(BaseModel):
-    start_date = models.DateField(default=timezone.now)
+    start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
 
     def __str__(self):
