@@ -6,7 +6,7 @@ class Product(BaseModel):
     clics_db_id = models.IntegerField()
     code = models.CharField(max_length=50)
     claim_type = models.CharField(max_length=50)
-    maximum_age = models.IntegerField()
+    maximum_age = models.IntegerField(null=True)
     product_category = models.CharField(max_length=50)
     lob = models.CharField(max_length=50)
 

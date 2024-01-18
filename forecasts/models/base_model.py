@@ -5,32 +5,39 @@ import csv
 import os
 
 class BaseModel(models.Model):
-    clics_db_id = models.IntegerField()
+    clics_db_id = models.IntegerField(default=0)
 
     class Meta:
         abstract = True  
 
     @classmethod
     def bulk_upload(self):
-        self.back_up_existing()
-        self.delete_existing()
-        self.upload_data()
-        self.export_model_to_csv()
+         self.back_up_existing()
+         self.delete_existing()
+         self.upload_data()
+         self.export_model_to_csv()
 
     @classmethod
-    def upload_data(self):
-        csv_upload_path = self.get_csv_upload_file_path()
+    def upload_data(cls):
+        csv_upload_path = cls.get_csv_upload_file_path()
         with open(csv_upload_path, 'r', encoding='utf-8-sig') as csv_file: 
             reader = csv.DictReader(csv_file)
             chunks = []
+
             for row in reader:
-                obj = self(**row)
+                for field, value in row.items():
+                    if value=='NULL':
+                        row[field] = None
+
+                obj = cls(**row)
                 chunks.append(obj)
-                if len(chunks)>1000:
-                    self.objects.bulk_create(chunks)
+
+                if len(chunks) > 1000:
+                    cls.objects.bulk_create(chunks)
                     chunks = []
-            if len(chunks)>0:
-                self.objects.bulk_create(chunks)
+
+            if len(chunks) > 0:
+                cls.objects.bulk_create(chunks)
 
     @classmethod
     def export_model_to_csv(self):

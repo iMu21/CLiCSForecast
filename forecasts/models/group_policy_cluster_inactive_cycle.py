@@ -1,7 +1,9 @@
 from django.db import models
-from forecasts.models.inactive_cycle import InactiveCycle
+from forecasts.models.base_model import BaseModel
 
-class GroupPolicyClusterInactiveCycle(InactiveCycle):
+class GroupPolicyClusterInactiveCycle(BaseModel):
+    start_date = models.DateField(null=True,blank=True)
+    end_date = models.DateField(null=True,blank=True)
     group_policy_cluster_id = models.IntegerField()
 
     def __str__(self):

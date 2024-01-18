@@ -10,7 +10,7 @@ GroupPolicyClusterProductId as group_policy_cluster_product_id,
 
 CoverageAmount as coverage_amount, 
 
-FORMAT(EffectiveDateUtc,'yyyy-mm-dd') as effective_date 
+FORMAT(EffectiveDateUtc,'yyyy-MM-dd') as effective_date 
 
 from EnrollDependentProducts 
 

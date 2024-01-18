@@ -6,7 +6,7 @@ grouppolicyclusterid as group_policy_cluster_id,
 
 grouppolicyproductid as group_policy_product_id, 
 
-FORMAT(EffectiveDateUtc,'yyyy-mm-dd') as effective_date 
+FORMAT(EffectiveDateUtc,'yyyy-MM-dd') as effective_date 
 
 from groupPolicyClusterProducts 
 

@@ -6,16 +6,33 @@ from .views.predict_claim_views import PredictClaimAmountView
 from .views.bulk_upload_view import *
 
 urlpatterns = [
-    path('api/enrolls/', EnrollList.as_view(), name='enrolls'),
+    path('api/enroll/get-page/', EnrollList.as_view(), name='enrolls'),
     path('api/enroll/<int:pk>/', EnrollDetail.as_view(), name='enroll'),
 
-    path('api/group-policy-bulk-upload/', GroupPolicyBulkUpload.as_view(), name='group-policy-bulk-upload'),
-    path('api/enroll-bulk-upload/', EnrollBulkUpload.as_view(), name='enroll-bulk-upload'),
-    path('api/dependent-bulk-upload/', DependentBulkUpload.as_view(), name='dependent-bulk-upload'),
+    path('api/forecast/predict_claim_amount/', PredictClaimAmountView.as_view(), name='predict_claim_amount'),
 
-    path('api/dependent/', DependentList.as_view(), name='dependent-list'),
-    path('api/group_policy/', GroupPolicyList.as_view(), name='group-policy-list'),
-    path('api/predict_claim_amount/', PredictClaimAmountView.as_view(), name='predict_claim_amount'),
+    path('api/bulk-upload/all/', AllBulkUpload.as_view(), name='All Bulk Upload'),
+    path('api/bulk-upload/group-policy/', GroupPolicyBulkUpload.as_view()),
+    path('api/bulk-upload/enroll/', EnrollBulkUpload.as_view()),
+    path('api/bulk-upload/enroll-inactive-cycle/', EnrollInactiveCycleBulkUpload.as_view()),
+    path('api/bulk-upload/enroll-product/', EnrollProductBulkUpload.as_view()),
+    path('api/bulk-upload/enroll-product-inactive-cycle/', EnrollProductInactiveCycleBulkUpload.as_view()),
+    path('api/bulk-upload/dependent/', DependentBulkUpload.as_view()),
+    path('api/bulk-upload/dependent-inactive-cycle/', DependentInactiveCycleBulkUpload.as_view()),
+    path('api/bulk-upload/dependent-product/', DependentProductBulkUpload.as_view()),
+    path('api/bulk-upload/dependent-product-inactive-cycle/', DependentProductInactiveCycleBulkUpload.as_view()),
+    
+    path('api/bulk-upload/product/', ProductBulkUpload.as_view()),
+    
+    path('api/bulk-upload/group-policy/', GroupPolicyBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-cluster/', GroupPolicyClusterBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-product/', GroupPolicyproductBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-inactive-cycle/', GroupPolicyInactiveCycleBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-cluster-product/', GroupPolicyClusterProductBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-cluster-inactive-cycle/', GroupPolicyClusterInactiveCycleBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-product-inactive-cycle/', GroupPolicyproductInactiveCycleBulkUpload.as_view()),
+    path('api/bulk-upload/group-policy-cluster-product-inactive-cycle/', GroupPolicyClusterProductInactiveCycleBulkUpload.as_view()),
 
-    path('api/all-bulk-upload/', AllBulkUpload.as_view(), name='All Bulk Upload'),
+    path('api/bulk-upload/claim-entry/', ClaimEntryBulkUpload.as_view()),
+    path('api/bulk-upload/payment-queue/', PaymentQueueBulkUpload.as_view()),
 ]

@@ -119,3 +119,4 @@ class AllBulkUpload(APIView):
         PaymentQueue.bulk_upload()
         Product.bulk_upload()
         ClaimEntry.bulk_upload()
+        return Response({'Status': "Done"}, status=status.HTTP_200_OK)
