@@ -12,4 +12,4 @@ from PaymentQueues p
 
 join ClaimEntries c on c.ClaimNumber = p.ClaimNumber 
 
---clics_db_id,claim_entry_id,claim_amount,payable_amount 
+--clics_db_id,claim_entry_id,claim_amount,payable_amount,claim_date
