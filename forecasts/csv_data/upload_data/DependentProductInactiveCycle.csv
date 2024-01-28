@@ -1,4 +1,4 @@
-﻿clics_db_id,start_date,end_date,dependent_product_id
+﻿clics_db_id,start_date,end_date,parent_id
 0,2019-12-01,2019-12-31,27217
 1,2020-06-25,2020-06-25,45177
 2,2020-06-25,2020-06-25,45178

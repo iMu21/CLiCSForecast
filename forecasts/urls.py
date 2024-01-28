@@ -1,5 +1,6 @@
 from django.urls import path
 from forecasts.views.claim_amount_forecast_training_data_view import *
+from forecasts.views.data_analysis_report_view import DataAnalaysisReportClaimForecastList
 from .views.enroll_views import EnrollList,EnrollDetail
 from .views.predict_claim_views import PredictClaimAmountView
 from .views.bulk_upload_view import *
@@ -9,13 +10,10 @@ urlpatterns = [
     path('api/enroll/<int:pk>/', EnrollDetail.as_view(), name='enroll'),
 
     path('api/forecast/predict_claim_amount/', PredictClaimAmountView.as_view(), name='predict_claim_amount'),
-
-    path('api/data-analysis/active-count/', ActiveCountView.as_view()),
-    path('api/data-analysis/active-group-policy-count/', ActiveGroupPolicyCountView.as_view()),
-    path('api/data-analysis/active-group-policy-product-count/', ActiveGroupPolicyProductCountView.as_view()),
-    path('api/data-analysis/active-group-policy-cluster-count/', ActiveGroupPolicyClusterCountView.as_view()),
     
     path('api/generate-report/claim-amount-forecast/', DataAnalaysisReportClaimForecastView.as_view()),
+
+    path('api/get-data-analysis-reports/claim-amount-forecast',DataAnalaysisReportClaimForecastList.as_view()),
 
     path('api/bulk-upload/all/', AllBulkUpload.as_view(), name='All Bulk Upload'),
     path('api/bulk-upload/group-policy/', GroupPolicyBulkUpload.as_view()),

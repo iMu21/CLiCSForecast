@@ -1,7 +1,5 @@
 venv
-migrations
 __pycache__
-db.sqlite3
 .ipynb_checkpoints
 latest_data
 backup_data

@@ -1,4 +1,4 @@
-﻿clics_db_id,start_date,end_date,group_policy_product_id
+﻿clics_db_id,start_date,end_date,parent_id
 3,2021-10-01,NULL,44
 4,2021-10-01,NULL,43
 5,2021-01-26,NULL,312

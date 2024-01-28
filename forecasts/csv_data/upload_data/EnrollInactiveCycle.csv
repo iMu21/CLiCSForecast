@@ -1,4 +1,4 @@
-﻿clics_db_id,start_date,end_date,enroll_id
+﻿clics_db_id,start_date,end_date,parent_id
 2,2020-03-01,NULL,5900
 5,2019-02-01,2019-02-28,5842
 8,2020-02-01,NULL,5901

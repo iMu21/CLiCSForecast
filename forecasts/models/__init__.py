@@ -20,3 +20,5 @@ from .dependent_product_inactive_cycle import DependentProductInactiveCycle
 from .payment_queue import PaymentQueue
 from .claim_entry import ClaimEntry
 from .product import Product
+
+from .data_analysis_report_claim_amount_forecast import DataAnalaysisReportClaimForecast

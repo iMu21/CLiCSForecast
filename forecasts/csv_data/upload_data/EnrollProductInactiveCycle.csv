@@ -1,4 +1,4 @@
-﻿clics_db_id,start_date,end_date,enroll_product_id
+﻿clics_db_id,start_date,end_date,parent_id
 1,2021-01-01,NULL,37918
 38,2021-05-03,NULL,41171
 39,2023-03-01,NULL,504366
