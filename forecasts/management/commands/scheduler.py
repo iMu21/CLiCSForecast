@@ -27,25 +27,25 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Trigger tasks immediately
-        update_group_policy_statistics()
-        update_group_policy_cluster_statistics()
+        # update_group_policy_statistics()
+        # update_group_policy_cluster_statistics()
         update_payment_statistic()
-        update_enroll_statistics()
-        update_enroll_product_statistics()
-        update_dependent_statistics()
-        update_dependent_product_statistics()
+        # update_enroll_statistics()
+        # update_enroll_product_statistics()
+        # update_dependent_statistics()
+        # update_dependent_product_statistics()
 
         #Scheduled tasks
-        schedule.every(24).hours.do(self.make_enroll_processing_available)
+        # schedule.every(24).hours.do(self.make_enroll_processing_available)
 
-        schedule.every(24).hours.do(update_group_policy_statistics)
-        schedule.every(24).hours.do(update_group_policy_cluster_statistics)
-        schedule.every(24).hours.do(update_payment_statistic)
+        # schedule.every(24).hours.do(update_group_policy_statistics)
+        # schedule.every(24).hours.do(update_group_policy_cluster_statistics)
+        # schedule.every(24).hours.do(update_payment_statistic)
 
-        schedule.every(30).seconds.do(update_enroll_statistics)
-        schedule.every(30).seconds.do(update_enroll_product_statistics)
-        schedule.every(30).seconds.do(update_dependent_statistics)
-        schedule.every(30).seconds.do(update_dependent_product_statistics)
+        # schedule.every(30).seconds.do(update_enroll_statistics)
+        # schedule.every(30).seconds.do(update_enroll_product_statistics)
+        # schedule.every(30).seconds.do(update_dependent_statistics)
+        # schedule.every(30).seconds.do(update_dependent_product_statistics)
 
         # Run the scheduler loop
         while True:

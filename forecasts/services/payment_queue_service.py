@@ -16,7 +16,7 @@ def update_payment_statistic():
             amount = 0
             for payment in payments:
                 if current_start_date<=payment.claim_date<=current_end_date:
-                    amount = amount + payment.claim_amount
+                    amount = amount + payment.payable_amount
             year = current_start_date.year
             month = current_start_date.month
 
@@ -29,6 +29,7 @@ def update_payment_statistic():
                 report.year = year
                 report.month = month
             report.claim_amount = amount
+            report.save()
             current_start_date = (current_start_date+one_month).replace(day=1)
             current_end_date = (current_start_date + relativedelta(months=1)) - timedelta(days=1)
         print("Payment statistics process end")
