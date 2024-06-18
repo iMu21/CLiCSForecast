@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'forecasts',
     'rest_framework',
     'drf_yasg',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,29 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'forecasts.middlewares.http_middleware.CustomHeadersMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOW_ALL_ORIGIN=True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'Accept',
+    'Accept-Encoding',
+    'Authorization',
+    'Content-Type',
+    'Origin',
+    'X-CSRF-Token',
+    'X-Requested-With',
 ]
 
 ROOT_URLCONF = 'CLiCSForecast.urls'

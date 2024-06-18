@@ -8,4 +8,4 @@ class PredictClaimAmountView(APIView):
     def get(self, request, format=None):
         predicted_claim = predict_monthly_payment_amount()
 
-        return Response(predicted_claim, status=status.HTTP_200_OK)
+        return Response(predicted_claim, status=status.HTTP_200_OK,)
