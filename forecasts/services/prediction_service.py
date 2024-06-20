@@ -3,7 +3,7 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
-def corelations():
+def correlations():
     with open('forecasts/data_analysises/correlation.pkl', 'rb') as correlations_file:
         correlation_dict = pickle.load(correlations_file)
         return correlation_dict
@@ -26,8 +26,8 @@ def predict_monthly_payment_amount():
             "year": last_years[i],
             "is_predicted": is_predicted_list[i]
         })
-    corr = corelations()
-    return {"claim_data":res, "corelations":corr}
+    corr = correlations()
+    return {"claim_data":res, "correlations":corr}
 
 def get_data_frame(data):
     cols = [
