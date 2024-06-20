@@ -2,38 +2,30 @@ import pandas as pd
 import pickle
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+
+def corelations():
+    file_path = "forecasts/data_analysis_reports/Sample_Data.xlsx"
+    data = pd.read_excel(file_path)
+    data_numeric = data.drop(columns=['Month', 'Year'])
+ 
+    correlation_matrix = data_numeric.corr()
+ 
+    payment_correlation = correlation_matrix['Payment Amount'].drop('Payment Amount')
+ 
+    correlation_dict = payment_correlation.to_dict()
+
+    return correlation_dict
  
 def predict_monthly_payment_amount():
     file_path = "forecasts/data_analysis_reports/Sample_Data.xlsx"
     data = pd.read_excel(file_path)
- 
-    predict_no_of_month = 1
     took_month = 20
  
-    last_payments = list(data['Payment Amount'])[-took_month:-predict_no_of_month]
+    last_payments = list(data['Payment Amount'])[-took_month:]
     last_months = list(data['Month'])[-took_month:]
     last_years = list(data['Year'])[-took_month:]
-    is_predicted_list = [False] * (took_month - predict_no_of_month)
+    is_predicted_list = [False] * (took_month)
  
-    data = data.drop(columns=['Month', 'Year'])
- 
-    with open('forecasts/data_analysises/linear_model.pkl', 'rb') as model_file:
-        clf = pickle.load(model_file)
-   
-    with open('forecasts/data_analysises/scaler.pkl', 'rb') as scaler_file:
-        scaler = pickle.load(scaler_file)
- 
-    test = data[-predict_no_of_month:]  
-    X_last_row = test.drop(columns=["Payment Amount"])
-    
-    X_last_row_scaled = scaler.transform(X_last_row)
-
-    predictions = clf.predict(X_last_row_scaled)
- 
-    for i in range(predict_no_of_month):
-        last_payments.append(int(predictions[i][0]))
-        is_predicted_list.append(True)
-
     res = []
     for i in range(len(last_payments)):
         res.append({
@@ -42,8 +34,8 @@ def predict_monthly_payment_amount():
             "year": last_years[i],
             "is_predicted": is_predicted_list[i]
         })
-
-    return res
+    corr = corelations()
+    return {"claim_data":res, "corelations":corr}
 
 def get_data_frame(data):
     cols = [
