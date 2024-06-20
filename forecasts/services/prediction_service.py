@@ -4,17 +4,9 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 def corelations():
-    file_path = "forecasts/data_analysis_reports/Sample_Data.xlsx"
-    data = pd.read_excel(file_path)
-    data_numeric = data.drop(columns=['Month', 'Year'])
- 
-    correlation_matrix = data_numeric.corr()
- 
-    payment_correlation = correlation_matrix['Payment Amount'].drop('Payment Amount')
- 
-    correlation_dict = payment_correlation.to_dict()
-
-    return correlation_dict
+    with open('forecasts/data_analysises/correlation.pkl', 'rb') as correlations_file:
+        correlation_dict = pickle.load(correlations_file)
+        return correlation_dict
  
 def predict_monthly_payment_amount():
     file_path = "forecasts/data_analysis_reports/Sample_Data.xlsx"
