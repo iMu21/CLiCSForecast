@@ -7,6 +7,12 @@ def correlations():
     with open('forecasts/data_analysises/correlation.pkl', 'rb') as correlations_file:
         correlation_dict = pickle.load(correlations_file)
         return correlation_dict
+    
+def getNextMonthInfo():
+    file_path = "forecasts/data_analysis_reports/Next_Month_Info.xlsx"
+    data = pd.read_excel(file_path)
+    data_dict = data.to_dict(orient='records')
+    return data_dict[0]
  
 def predict_monthly_payment_amount():
     file_path = "forecasts/data_analysis_reports/Sample_Data.xlsx"
@@ -27,7 +33,8 @@ def predict_monthly_payment_amount():
             "is_predicted": is_predicted_list[i]
         })
     corr = correlations()
-    return {"claim_data":res, "correlations":corr}
+    nextMonthInfo = getNextMonthInfo()
+    return {"claim_data":res, "correlations":corr, "next_month_info":nextMonthInfo}
 
 def get_data_frame(data):
     cols = [
