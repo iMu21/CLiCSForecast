@@ -17,7 +17,7 @@ def getNextMonthInfo():
 def predict_monthly_payment_amount():
     file_path = "forecasts/data_analysis_reports/Sample_Data.xlsx"
     data = pd.read_excel(file_path)
-    took_month = 20
+    took_month = 25
  
     last_payments = list(data['Payment Amount'])[-took_month:]
     last_months = list(data['Month'])[-took_month:]
@@ -34,17 +34,10 @@ def predict_monthly_payment_amount():
         })
     corr = correlations()
     nextMonthInfo = getNextMonthInfo()
-    return {"claim_data":res, "correlations":corr, "next_month_info":nextMonthInfo}
+    return {"claim_data":res, "correlations":corr, "next_month_info":nextMonthInfo, "cols":get_cols()}
 
 def get_data_frame(data):
-    cols = [
-        'InsuredCount', 'ChildLessThan18', 'AdultLessThan40', 'MiddleLessThan55', 
-        'OldGreaterThan55', 'ActiveWeight_P1', 'ActiveWeight_P3', 'ActiveWeight_P4', 
-        'ActiveWeight_P5', 'ActiveWeight_P6', 'ActiveWeight_P7', 'ActiveWeight_P8', 
-        'ActiveWeight_P9', 'ActiveWeight_P10', 'ActiveWeight_P11', 'ActiveWeight_P12', 
-        'ActiveWeight_P13', 'ActiveWeight_P14', 'ActiveWeight_P15', 'ActiveWeight_P16', 
-        'ActiveWeight_P17', 'ActiveWeight_P18', 'ActiveWeight_P19', 'ActiveWeight_P21'
-    ]
+    cols = get_cols()
 
     cleaned_data = {k: v for k, v in data.items() if k in cols}
     df = pd.DataFrame([cleaned_data])
@@ -52,17 +45,28 @@ def get_data_frame(data):
     return df
 
 def predict_monthly_payment_amount_with_data(data):
-    df = get_data_frame(data)
-
-    with open('forecasts/data_analysises/linear_model.pkl', 'rb') as model_file:
-        clf = pickle.load(model_file)
-   
-    with open('forecasts/data_analysises/scaler.pkl', 'rb') as scaler_file:
-        scaler = pickle.load(scaler_file)
-
-    scaled = scaler.transform(df)
-
-    predictions = clf.predict(scaled)
+    try:
+        df = get_data_frame(data)
+        print("Came1")
+        with open('forecasts/data_analysises/linear_model.pkl', 'rb') as model_file:
+            clf = pickle.load(model_file)
     
-    return int(predictions[0][0])
+        with open('forecasts/data_analysises/scaler.pkl', 'rb') as scaler_file:
+            scaler = pickle.load(scaler_file)
+            
+        scaled = scaler.transform(df)
+        predictions = clf.predict(scaled)
+        return int(predictions[0][0])
+    except Exception as error:
+        print(error)
 
+def get_cols():
+    return [
+        'InsuredCount', 'ChildLessThan18', 'AdultLessThan40', 'MiddleLessThan55', 
+        'OldGreaterThan55', 'ActiveWeight_P1', 'ActiveWeight_P3', 'ActiveWeight_P4', 
+        'ActiveWeight_P5', 'ActiveWeight_P6', 'ActiveWeight_P7', 'ActiveWeight_P8', 
+        'ActiveWeight_P10', 'ActiveWeight_P11', 'ActiveWeight_P12', 
+        'ActiveWeight_P13', 'ActiveWeight_P14', 'ActiveWeight_P15', 'ActiveWeight_P16', 
+        'ActiveWeight_P17', 'ActiveWeight_P18', 'ActiveWeight_P19', 'ActiveWeight_P21',
+        'Male','Others' ,'Female','Married', 'Unmarried', 'Acute', 'Chronic'
+    ]
